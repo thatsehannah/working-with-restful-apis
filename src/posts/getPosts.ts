@@ -2,14 +2,17 @@ import { PostData } from './types';
 
 export const getPosts = async () => {
   const response = await fetch(process.env.REACT_APP_API_URL!);
-  const body = (await response.json()) as unknown;
-  return body;
+  const data = (await response.json()) as unknown;
+  assertIsPosts(data);
+  return data;
 };
 
 //type assertion function to type the response data in the getPosts function
-export const assetIsPosts = (
+//i'm not using an arrow function here because the syntax doesn't make sense to me (might
+//consider using function definitions going forward to be consistent)
+export function assertIsPosts(
   postsData: unknown
-): asserts postsData is PostData[] => {
+): asserts postsData is PostData[] {
   if (!Array.isArray(postsData)) {
     throw new Error("posts isn't an array");
   }
@@ -40,4 +43,4 @@ export const assetIsPosts = (
       throw new Error('description is not a string');
     }
   });
-};
+}
