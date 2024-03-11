@@ -22,11 +22,11 @@ export function assertIsPosts(
   }
 
   postsData.forEach((post) => {
-    if (!('id' in post)) {
-      throw new Error("post doesn't contain id");
+    if (!('uid' in post)) {
+      throw new Error("post doesn't contain uid");
     }
-    if (typeof post.id !== 'number') {
-      throw new Error('id is not a number');
+    if (typeof post.uid !== 'number') {
+      throw new Error('uid is not a number');
     }
 
     if (!('title' in post)) {

@@ -1,5 +1,5 @@
 export type PostData = {
-  id: number;
+  uid: number; //had to change this from id to uid because json-server was converting the id field to a string by default
   title: string;
   description: string;
 };
