@@ -1,5 +1,5 @@
 export type PostData = {
-  uid: number; //had to change this from id to uid because json-server was converting the id field to a string by default
+  id: string;
   title: string;
   description: string;
 };
@@ -10,5 +10,5 @@ export type NewPostData = {
 };
 
 export type SavedPostData = {
-  uid: number;
+  id: string;
 };

@@ -3,12 +3,17 @@
     {
       "title": "Getting started with fetch",
       "description": "How to interact with backend APIs using fetch",
-      "uid": 1
+      "id": "0"
     },
     {
       "title": "Getting started with useEffect",
       "description": "How to use React's useEffect hook for interacting with backend APIs",
-      "uid": 2
+      "id": "1"
+    },
+    {
+      "id": "4b95",
+      "title": "Using fetch to POST data",
+      "description": "How to use fetch to make HTTP POst requests to a backend API"
     }
   ]
 }

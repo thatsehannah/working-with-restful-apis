@@ -9,15 +9,17 @@ export async function savePost(newPostData: NewPostData) {
     },
   });
   const body = (await response.json()) as unknown;
+  console.log('Before:', body);
   assetIsSavedPost(body);
+  console.log('After:', body);
   return { ...newPostData, ...body };
 }
 
 function assetIsSavedPost(post: any): asserts post is SavedPostData {
-  if (!('uid' in post)) {
+  if (!('id' in post)) {
     throw new Error("post doesn't contain uid");
   }
-  if (typeof post.uid !== 'number') {
+  if (typeof post.id !== 'string') {
     throw new Error('uid is not a number');
   }
 }
