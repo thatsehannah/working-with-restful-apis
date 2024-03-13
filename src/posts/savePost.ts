@@ -9,9 +9,7 @@ export async function savePost(newPostData: NewPostData) {
     },
   });
   const body = (await response.json()) as unknown;
-  console.log('Before:', body);
   assetIsSavedPost(body);
-  console.log('After:', body);
   return { ...newPostData, ...body };
 }
 

@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { useLoaderData, Await } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { assertIsPosts, getPosts } from './getPosts';
 import { savePost } from './savePost';
-import { PostData, NewPostData } from './types';
+import { PostData } from './types';
 import { PostsList } from './PostsList';
 import { NewPostForm } from './NewPostForm';
 
@@ -33,12 +33,21 @@ export function PostsPage() {
     queryKey: ['postsData'],
     queryFn: getPosts,
   });
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: savePost,
+    onSuccess: (savedPost) => {
+      queryClient.setQueryData<PostData[]>(['postsData'], (oldPosts) => {
+        if (oldPosts === undefined) {
+          return [savedPost];
+        }
+
+        return [savedPost, ...oldPosts];
+      });
+    },
+  });
   // const data = useLoaderData();
   // assertIsData(data);
-
-  async function handleSave(newPostData: NewPostData) {
-    await savePost(newPostData);
-  }
 
   if (isPending || posts === undefined) {
     return <div className='w-96 mx-auto mt-6'>Loading ...</div>;
@@ -47,7 +56,7 @@ export function PostsPage() {
   return (
     <div className='w-96 mx-auto mt-6'>
       <h2 className='text-xl text-slate-900 font-bold'>Posts</h2>
-      <NewPostForm onSave={handleSave} />
+      <NewPostForm onSave={mutate} />
       {/* <Suspense fallback={<div>Fetching...</div>}>
         <Await resolve={data.posts}>
           {(posts) => {
