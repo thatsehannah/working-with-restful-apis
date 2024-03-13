@@ -24,6 +24,11 @@
       "id": "23a3",
       "title": "Getting started with React Query",
       "description": "How to use React Query to interact with backend APIs"
+    },
+    {
+      "id": "2eb9",
+      "title": "Interacting with RESTful APIs",
+      "description": "How to use React Router with React Query"
     }
   ]
 }

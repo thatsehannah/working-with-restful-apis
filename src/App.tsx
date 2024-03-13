@@ -9,7 +9,19 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <PostsPage />,
-    loader: async () => defer({ posts: getPosts() }),
+    loader: async () => {
+      const existingData = queryClient.getQueryData(['postsData']);
+      if (existingData) {
+        return defer({ posts: existingData });
+      }
+
+      return defer({
+        posts: queryClient.fetchQuery({
+          queryKey: ['postsData'],
+          queryFn: getPosts,
+        }),
+      });
+    },
   },
 ]);
 
